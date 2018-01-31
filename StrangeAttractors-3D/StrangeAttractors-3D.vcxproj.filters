@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Quelldateien">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Headerdateien">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Ressourcendateien">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Headerdateien\Application">
+      <UniqueIdentifier>{c6167fc7-0b46-47ab-aff9-404854dd6a26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\Application">
+      <UniqueIdentifier>{9ed38518-c799-482a-91c7-55bc99c338af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\Application\Attractor">
+      <UniqueIdentifier>{48c0533a-6e1c-43fe-b0d5-67ee7e89140b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\Application\Attractor">
+      <UniqueIdentifier>{c7f022cd-e43c-491c-8669-674cdf6b7d71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\Application\Jumper">
+      <UniqueIdentifier>{7eda2e5f-c293-46a8-b665-c269f7795b4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\Application\Jumper">
+      <UniqueIdentifier>{2f744c5d-25a5-4d69-b770-d3a0a65e763b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="code\main.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="code\Application\Application.cpp">
+      <Filter>Quelldateien\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="code\Application\Attractor\Attractor.cpp">
+      <Filter>Quelldateien\Application\Attractor</Filter>
+    </ClCompile>
+    <ClCompile Include="code\Application\Jumper\Jumper.cpp">
+      <Filter>Quelldateien\Application\Jumper</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="code\Application\Application.h">
+      <Filter>Headerdateien\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="code\Application\Attractor\Attractor.h">
+      <Filter>Headerdateien\Application\Attractor</Filter>
+    </ClInclude>
+    <ClInclude Include="code\Application\Jumper\Jumper.h">
+      <Filter>Headerdateien\Application\Jumper</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
