@@ -16,6 +16,8 @@ class Jumper
 		void Jump();
 		void Reset();
 
+		void SetJumpDistance(float Distance);
+
 	private:
 
 		irr::scene::ISceneNode *_JumpPoint;
@@ -23,5 +25,7 @@ class Jumper
 
 		std::vector<irr::scene::ISceneNode*> _JumpedPositions;
 		std::vector<Attractor*> _Attractors;
+
+		float _JumpDistance;
 
 };

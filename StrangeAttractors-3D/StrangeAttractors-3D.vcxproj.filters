@@ -31,6 +31,12 @@
     <Filter Include="Quelldateien\Application\Jumper">
       <UniqueIdentifier>{2f744c5d-25a5-4d69-b770-d3a0a65e763b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headerdateien\Application\GUI">
+      <UniqueIdentifier>{bdf7bae5-0c30-4596-a689-831615130385}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\Application\GUI">
+      <UniqueIdentifier>{37dcd49c-d194-4e23-97b6-56de57f2cb3b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\main.cpp">
@@ -45,6 +51,9 @@
     <ClCompile Include="code\Application\Jumper\Jumper.cpp">
       <Filter>Quelldateien\Application\Jumper</Filter>
     </ClCompile>
+    <ClCompile Include="code\Application\GUI\GUI.cpp">
+      <Filter>Quelldateien\Application\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\Application\Application.h">
@@ -55,6 +64,9 @@
     </ClInclude>
     <ClInclude Include="code\Application\Jumper\Jumper.h">
       <Filter>Headerdateien\Application\Jumper</Filter>
+    </ClInclude>
+    <ClInclude Include="code\Application\GUI\GUI.h">
+      <Filter>Headerdateien\Application\GUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

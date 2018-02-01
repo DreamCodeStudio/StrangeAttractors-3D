@@ -1,5 +1,6 @@
 ﻿  main.cpp
   Jumper.cpp
+  GUI.cpp
   Attractor.cpp
   Application.cpp
   Code wird generiert...

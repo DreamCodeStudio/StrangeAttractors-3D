@@ -3,7 +3,7 @@
 Application::Application()
 {
 	/* Create window, scene manager, and video driver */
-	_Device = irr::createDevice(irr::video::EDT_DIRECT3D9, irr::core::dimension2d<irr::u32>(1920, 1080), 16U, false, false, true, 0);
+	_Device = irr::createDevice(irr::video::EDT_DIRECT3D9, irr::core::dimension2d<irr::u32>(1920, 1080), 16U, false, false, false, 0);
 	_Driver = _Device->getVideoDriver();
 	_SceneManager = _Device->getSceneManager();
 
@@ -19,6 +19,9 @@ Application::Application()
 
 	/* Create Jumper */
 	_Jumper = new Jumper(_SceneManager, _Attractors);
+
+	/* Create GUI */
+	_GUI = new GUI(_SceneManager, _Jumper);
 }
 
 void Application::Run()
@@ -31,9 +34,17 @@ void Application::Run()
 		/* Draw all objects */
 		_SceneManager->drawAll();
 
-		_Driver->endScene();		
-		_Jumper->Jump();
-		
+		/* Update and render GUI */
+		_GUI->Update(); 
+		_GUI->Render();
+
+		/* Jump to attractor */
+		if (_GUI->IsStarted())
+		{
+			_Jumper->Jump();
+		}
+
+		_Driver->endScene();				
 	}
 }
 

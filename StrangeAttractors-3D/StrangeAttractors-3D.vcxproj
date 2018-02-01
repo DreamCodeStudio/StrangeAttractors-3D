@@ -21,12 +21,14 @@
   <ItemGroup>
     <ClCompile Include="code\Application\Application.cpp" />
     <ClCompile Include="code\Application\Attractor\Attractor.cpp" />
+    <ClCompile Include="code\Application\GUI\GUI.cpp" />
     <ClCompile Include="code\Application\Jumper\Jumper.cpp" />
     <ClCompile Include="code\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\Application\Application.h" />
     <ClInclude Include="code\Application\Attractor\Attractor.h" />
+    <ClInclude Include="code\Application\GUI\GUI.h" />
     <ClInclude Include="code\Application\Jumper\Jumper.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

@@ -12,6 +12,9 @@
 /* Jumper */
 #include "Jumper\Jumper.h"
 
+/* GUI environment */
+#include "GUI\GUI.h"
+
 class Application
 {
 	public:
@@ -31,4 +34,5 @@ class Application
 
 		std::vector<Attractor*> _Attractors;
 		Jumper *_Jumper;
+		GUI *_GUI;
 };
