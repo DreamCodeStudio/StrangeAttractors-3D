@@ -8,7 +8,7 @@ Jumper::Jumper(irr::scene::ISceneManager *SceneManager, std::vector<Attractor*> 
 	/* Create green JumpPoint */
 	_JumpPoint = SceneManager->addSphereSceneNode(2.0f, 32, 0, -1, irr::core::vector3df(0, 0, 0));
 	_JumpPoint->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-	_JumpPoint->setMaterialTexture(0, SceneManager->getVideoDriver()->getTexture("Data\\JumpTexture.png"));
+	_JumpPoint->setMaterialTexture(0, SceneManager->getVideoDriver()->getTexture("Data\\Green.png"));
 
 	/* Safe pointer to Attractor list and SceneManager */
 	_Attractors = Attractors;

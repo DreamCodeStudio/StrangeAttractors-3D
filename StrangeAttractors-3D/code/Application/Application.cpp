@@ -12,10 +12,10 @@ Application::Application()
 	_Camera->setTarget(irr::core::vector3df(0, 0, 0));
 
 	/* Create Attractors */
-	_Attractors.push_back(new Attractor(_SceneManager, irr::core::vector3df(0, 0, 50)));
-	_Attractors.push_back(new Attractor(_SceneManager, irr::core::vector3df(35.35f, 0, -35.35f)));
-	_Attractors.push_back(new Attractor(_SceneManager, irr::core::vector3df(-35.35f, 0, -35.35f)));
-	_Attractors.push_back(new Attractor(_SceneManager, irr::core::vector3df(0, 50, 0)));
+	_Attractors.push_back(new Attractor(_Device, _SceneManager, irr::core::vector3df(0, 0, 50)));
+	_Attractors.push_back(new Attractor(_Device, _SceneManager, irr::core::vector3df(35.35f, 0, -35.35f)));
+	_Attractors.push_back(new Attractor(_Device, _SceneManager, irr::core::vector3df(-35.35f, 0, -35.35f)));
+	_Attractors.push_back(new Attractor(_Device, _SceneManager, irr::core::vector3df(0, 50, 0)));
 
 	/* Create Jumper */
 	_Jumper = new Jumper(_SceneManager, _Attractors);
@@ -38,12 +38,18 @@ void Application::Run()
 		_GUI->Update(); 
 		_GUI->Render();
 
+		for (unsigned int c = 0; c < _Attractors.size(); c++)
+		{
+			_Attractors[c]->Update();
+		}
+
 		/* Jump to attractor */
 		if (_GUI->IsStarted())
 		{
 			_Jumper->Jump();
 		}
 
+	
 		_Driver->endScene();				
 	}
 }
