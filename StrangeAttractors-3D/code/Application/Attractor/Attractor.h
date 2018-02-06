@@ -26,6 +26,8 @@ class Attractor
 
 		bool IsSelected();
 
+		void Delete();
+
 	private:
 
 		irr::IrrlichtDevice *_Device;

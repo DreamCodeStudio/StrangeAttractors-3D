@@ -105,6 +105,11 @@ void Attractor::Update()
 		}
 		else
 		{
+			if (_Device->getCursorControl()->getPosition().Y < 100) //Maybe the user did not want to unselect the button. He just wanted to press a button on the GUI
+			{
+				return;
+			}
+
 			_IsSelected = false;
 			_ArrowY->setVisible(false);
 			_ArrowX->setVisible(false);
@@ -163,4 +168,12 @@ void Attractor::Update()
 bool Attractor::IsSelected()
 {
 	return _IsSelected;
+}
+
+void Attractor::Delete()
+{
+	_Attractor->remove();
+	_ArrowX->remove();
+	_ArrowY->remove();
+	_ArrowZ->remove();
 }

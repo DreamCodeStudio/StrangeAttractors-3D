@@ -18,6 +18,9 @@ class GUI
 
 		bool IsStarted();
 
+		bool CreatePressed();
+		bool DeletePressed();
+
 	private:
 
 		Jumper *_Jumper;
@@ -25,7 +28,8 @@ class GUI
 		irr::gui::IGUIEnvironment *_GUIEnv;
 
 		irr::gui::IGUIScrollBar *_Distance;
-		irr::gui::IGUIButton *_Start, *_Stop, *_Reset;
+		irr::gui::IGUIButton *_Start, *_Stop, *_Reset, *_Create, *_Delete;
 
 		bool _Started;
+		bool _PressedDelete, _PressedCreate;
 };

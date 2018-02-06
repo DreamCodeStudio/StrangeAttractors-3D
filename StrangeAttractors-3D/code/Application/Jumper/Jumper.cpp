@@ -55,3 +55,8 @@ void Jumper::Reset()
 	}
 	_JumpedPositions.clear();
 }
+
+void Jumper::SetAttractorList(std::vector<Attractor*> Attractors)
+{
+	_Attractors = Attractors;
+}

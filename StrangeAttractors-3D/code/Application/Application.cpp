@@ -40,18 +40,19 @@ void Application::Run()
 		_GUI->Render();
 
 		/* Update all Attractors */
-		bool IsSelected = false;
+		int IsSelected = -1;
 		for (unsigned int c = 0; c < _Attractors.size(); c++)
 		{
 			_Attractors[c]->Update();
 			if (_Attractors[c]->IsSelected())
 			{
-				IsSelected = true;
+				IsSelected = c;
 			}
 
 		}
 
-		if (IsSelected)
+		/* If a attractor gets selected -> freeze camera */
+		if (IsSelected != -1)
 		{
 			_FrozenCamera->setPosition(_Camera->getPosition());
 			_FrozenCamera->setTarget(irr::core::vector3df(0, 0, 0));
@@ -61,6 +62,21 @@ void Application::Run()
 		else
 		{
 			_SceneManager->setActiveCamera(_Camera);
+		}
+
+		/* If a Attractor should be deleted */
+		if (_GUI->DeletePressed() && IsSelected != -1)
+		{
+			_Attractors[IsSelected]->Delete();
+			delete _Attractors[IsSelected];
+			_Attractors.erase(_Attractors.begin() + IsSelected, _Attractors.begin() + IsSelected + 1);
+		}
+
+		/* If a Attractor should be created */
+		if (_GUI->CreatePressed())
+		{
+			_Attractors.push_back(new Attractor(_Device, _SceneManager, irr::core::vector3df(50, 50, 50)));
+			_Jumper->SetAttractorList(_Attractors);
 		}
 
 
