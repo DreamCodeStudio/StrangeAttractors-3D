@@ -8,6 +8,7 @@ Application::Application()
 	_SceneManager = _Device->getSceneManager();
 
 	/* Create camera */
+	_FrozenCamera = _SceneManager->addCameraSceneNode();
 	_Camera = _SceneManager->addCameraSceneNodeMaya(0, -1500, 200, 1500, -1, 100, true);
 	_Camera->setTarget(irr::core::vector3df(0, 0, 0));
 
@@ -38,10 +39,30 @@ void Application::Run()
 		_GUI->Update(); 
 		_GUI->Render();
 
+		/* Update all Attractors */
+		bool IsSelected = false;
 		for (unsigned int c = 0; c < _Attractors.size(); c++)
 		{
 			_Attractors[c]->Update();
+			if (_Attractors[c]->IsSelected())
+			{
+				IsSelected = true;
+			}
+
 		}
+
+		if (IsSelected)
+		{
+			_FrozenCamera->setPosition(_Camera->getPosition());
+			_FrozenCamera->setTarget(irr::core::vector3df(0, 0, 0));
+
+			_SceneManager->setActiveCamera(_FrozenCamera);
+		}
+		else
+		{
+			_SceneManager->setActiveCamera(_Camera);
+		}
+
 
 		/* Jump to attractor */
 		if (_GUI->IsStarted())

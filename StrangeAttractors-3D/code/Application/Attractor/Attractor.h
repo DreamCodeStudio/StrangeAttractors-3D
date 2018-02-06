@@ -5,6 +5,10 @@
 /* Engine */
 #include <irrlicht.h>
 
+#define HORIZONTAL 0
+#define VERTICAL 1
+#define DEPTH 2
+
 class Attractor
 {
 	public:
@@ -16,12 +20,17 @@ class Attractor
 
 		void Update();
 
+		bool IsSelected();
+
 	private:
 
 		irr::IrrlichtDevice *_Device;
+		
 		irr::scene::ISceneManager *_Manager;
+		irr::scene::ISceneNode *_Attractor;	
+		irr::scene::IAnimatedMeshSceneNode *_ArrowY, *_ArrowX;
 
-		irr::scene::ISceneNode *_Attractor;		
+		bool _IsSelected;
+		int _CurrentMovement;
 
-		bool _IsOnView, _IsSelected;
 };

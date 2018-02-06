@@ -30,7 +30,7 @@ class Application
 		irr::IrrlichtDevice *_Device;
 		irr::video::IVideoDriver *_Driver;
 		irr::scene::ISceneManager *_SceneManager;
-		irr::scene::ICameraSceneNode *_Camera;
+		irr::scene::ICameraSceneNode *_Camera, *_FrozenCamera;
 
 		std::vector<Attractor*> _Attractors;
 		Jumper *_Jumper;
