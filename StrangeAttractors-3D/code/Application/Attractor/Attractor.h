@@ -9,6 +9,10 @@
 #define VERTICAL 1
 #define DEPTH 2
 
+#define MOUSE_UP 0
+#define MOUSE_CLICK 1
+#define MOUSE_HOLD 2
+
 class Attractor
 {
 	public:
@@ -28,9 +32,10 @@ class Attractor
 		
 		irr::scene::ISceneManager *_Manager;
 		irr::scene::ISceneNode *_Attractor;	
-		irr::scene::IAnimatedMeshSceneNode *_ArrowY, *_ArrowX;
+		irr::scene::IAnimatedMeshSceneNode *_ArrowY, *_ArrowX, *_ArrowZ;
 
 		bool _IsSelected;
+		int _Clicked;
 		int _CurrentMovement;
 
 };

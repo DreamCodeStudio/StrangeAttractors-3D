@@ -19,9 +19,16 @@ Attractor::Attractor(irr::IrrlichtDevice *Device, irr::scene::ISceneManager *Sce
 	_ArrowX->setPosition(irr::core::vector3df(_Attractor->getAbsolutePosition().X + _ArrowX->getTransformedBoundingBox().getExtent().X / 3, _Attractor->getAbsolutePosition().Y, _Attractor->getAbsolutePosition().Z));
 	_ArrowX->setVisible(false);
 
+	_ArrowZ = SceneManager->addAnimatedMeshSceneNode(SceneManager->getMesh("Data\\Arrow.obj"), 0, -1, _Attractor->getAbsolutePosition(), irr::core::vector3df(90, 0, 0), irr::core::vector3df(1, 3, 1));
+	_ArrowZ->setPosition(irr::core::vector3df(_Attractor->getAbsolutePosition().X, _Attractor->getAbsolutePosition().Y, _Attractor->getAbsolutePosition().Z - _ArrowZ->getTransformedBoundingBox().getExtent().Z / 3));
+	_ArrowZ->setVisible(false);
+
+
+
 	_CurrentMovement = -1;
 
 	_IsSelected = false;
+	_Clicked = MOUSE_UP;
 }
 
 void Attractor::SetPosition(irr::core::vector3df NewPosition)
@@ -37,51 +44,76 @@ irr::core::vector3df Attractor::GetPosition()
 
 void Attractor::Update()
 {
+	if (GetAsyncKeyState(VK_LBUTTON) && _Clicked == MOUSE_UP)
+	{
+		_Clicked = MOUSE_CLICK;
+	}
+	if (!GetAsyncKeyState(VK_LBUTTON))
+	{
+		_Clicked = MOUSE_UP;
+	}
+
 	/* Move Attractor according to the RayFromScreenCoordinates. While you move the mouse this ray moves too */
 	/* Move away or to the camera is moving the object along the ray. Just add to the current position of the object the direction vector multiplied with e.g. 0.1 */
 	/* For the movement to the side you need an orthogonal vector. You get this by a scalar multiplication with the direction vector. The result is zero */
-	if (GetAsyncKeyState(VK_LBUTTON) && _IsSelected == true)
+	if (_Clicked == MOUSE_CLICK && _IsSelected == true)
 	{
 		if (_ArrowY->getTransformedBoundingBox().intersectsWithLine(_Manager->getSceneCollisionManager()->getRayFromScreenCoordinates(_Device->getCursorControl()->getPosition(), _Manager->getActiveCamera())))
 		{
-			Sleep(100);
-			//while (GetAsyncKeyState(VK_LBUTTON));
 			_CurrentMovement = VERTICAL;
 			_ArrowX->setVisible(false);
+			_ArrowZ->setVisible(false);
+
+			_Clicked = MOUSE_HOLD;
 		}
 
 		if (_ArrowX->getTransformedBoundingBox().intersectsWithLine(_Manager->getSceneCollisionManager()->getRayFromScreenCoordinates(_Device->getCursorControl()->getPosition(), _Manager->getActiveCamera())))
 		{
-			Sleep(100);
-			//	while (GetAsyncKeyState(VK_LBUTTON));
 			_CurrentMovement = HORIZONTAL;
 			_ArrowY->setVisible(false);
+			_ArrowZ->setVisible(false);
+
+			_Clicked = MOUSE_HOLD;
+		}
+
+		if (_ArrowZ->getTransformedBoundingBox().intersectsWithLine(_Manager->getSceneCollisionManager()->getRayFromScreenCoordinates(_Device->getCursorControl()->getPosition(), _Manager->getActiveCamera())))
+		{
+			_CurrentMovement = DEPTH;
+			_ArrowY->setVisible(false);
+			_ArrowX->setVisible(false);
+
+			_Clicked = MOUSE_HOLD;
 		}
 	}
 
-	/* If the left mouse button is pressed */
-	if (GetAsyncKeyState(VK_LBUTTON))
+	/* If the left mouse button is pressed and the attractor is selected */
+	if (_Clicked == MOUSE_CLICK)
 	{
 		if ((_Attractor->getTransformedBoundingBox().intersectsWithLine(_Manager->getSceneCollisionManager()->getRayFromScreenCoordinates(_Device->getCursorControl()->getPosition(), _Manager->getActiveCamera())) ||
 			_ArrowY->getTransformedBoundingBox().intersectsWithLine(_Manager->getSceneCollisionManager()->getRayFromScreenCoordinates(_Device->getCursorControl()->getPosition(), _Manager->getActiveCamera())) || 
 			_ArrowX->getTransformedBoundingBox().intersectsWithLine(_Manager->getSceneCollisionManager()->getRayFromScreenCoordinates(_Device->getCursorControl()->getPosition(), _Manager->getActiveCamera()))) &&
 			_IsSelected == false)
-		{
-			Sleep(100);
+		{		
 			_IsSelected = true;
 			_ArrowY->setVisible(true);
 			_ArrowX->setVisible(true);
+			_ArrowZ->setVisible(true);
 
 			_Attractor->setMaterialTexture(0, _Manager->getVideoDriver()->getTexture("Data\\Selected.png"));
+		
+			_Clicked = MOUSE_HOLD;
 		}
 		else
 		{
 			_IsSelected = false;
 			_ArrowY->setVisible(false);
 			_ArrowX->setVisible(false);
+			_ArrowZ->setVisible(false);
 			_CurrentMovement = -1;
 
 			_Attractor->setMaterialTexture(0, _Manager->getVideoDriver()->getTexture("Data\\Red.png"));
+
+			_Clicked = MOUSE_HOLD;
 		}
 	}
 
@@ -98,6 +130,7 @@ void Attractor::Update()
 
 				_ArrowY->setPosition(irr::core::vector3df(_Attractor->getAbsolutePosition().X, _Attractor->getAbsolutePosition().Y - _ArrowY->getTransformedBoundingBox().getExtent().Y / 3, _Attractor->getAbsolutePosition().Z));
 				_ArrowX->setPosition(irr::core::vector3df(_Attractor->getAbsolutePosition().X + _ArrowX->getTransformedBoundingBox().getExtent().X / 3, _Attractor->getAbsolutePosition().Y, _Attractor->getAbsolutePosition().Z));
+				_ArrowZ->setPosition(irr::core::vector3df(_Attractor->getAbsolutePosition().X, _Attractor->getAbsolutePosition().Y, _Attractor->getAbsolutePosition().Z - _ArrowZ->getTransformedBoundingBox().getExtent().Z / 3));
 			}
 						   break;
 			case HORIZONTAL: {
@@ -109,15 +142,23 @@ void Attractor::Update()
 
 				_ArrowY->setPosition(irr::core::vector3df(_Attractor->getAbsolutePosition().X, _Attractor->getAbsolutePosition().Y - _ArrowY->getTransformedBoundingBox().getExtent().Y / 3, _Attractor->getAbsolutePosition().Z));
 				_ArrowX->setPosition(irr::core::vector3df(_Attractor->getAbsolutePosition().X + _ArrowX->getTransformedBoundingBox().getExtent().X / 3, _Attractor->getAbsolutePosition().Y, _Attractor->getAbsolutePosition().Z));
+				_ArrowZ->setPosition(irr::core::vector3df(_Attractor->getAbsolutePosition().X, _Attractor->getAbsolutePosition().Y, _Attractor->getAbsolutePosition().Z - _ArrowZ->getTransformedBoundingBox().getExtent().Z / 3));
 			}
 							 break;
 			case DEPTH: {
+				irr::core::line3df Line = _Manager->getSceneCollisionManager()->getRayFromScreenCoordinates(_Device->getCursorControl()->getPosition(), _Manager->getActiveCamera());
 
+				irr::core::vector3df NewPosition = Line.getClosestPoint(_Attractor->getAbsolutePosition());
+
+				_Attractor->setPosition(irr::core::vector3df(_Attractor->getAbsolutePosition().X, _Attractor->getAbsolutePosition().Y, NewPosition.Z));
+
+				_ArrowY->setPosition(irr::core::vector3df(_Attractor->getAbsolutePosition().X, _Attractor->getAbsolutePosition().Y - _ArrowY->getTransformedBoundingBox().getExtent().Y / 3, _Attractor->getAbsolutePosition().Z));
+				_ArrowX->setPosition(irr::core::vector3df(_Attractor->getAbsolutePosition().X + _ArrowX->getTransformedBoundingBox().getExtent().X / 3, _Attractor->getAbsolutePosition().Y, _Attractor->getAbsolutePosition().Z));
+				_ArrowZ->setPosition(irr::core::vector3df(_Attractor->getAbsolutePosition().X, _Attractor->getAbsolutePosition().Y, _Attractor->getAbsolutePosition().Z - _ArrowZ->getTransformedBoundingBox().getExtent().Z / 3));
 			}
 						break;
 		}
 	}
-
 }
 bool Attractor::IsSelected()
 {
